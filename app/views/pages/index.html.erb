@@ -1,0 +1,44 @@
+<h1>Login Status</h1>
+
+<% if current_user %>
+  Welcome, <%= current_user.username %>
+  <%= link_to "Logout", logout_path, :method => :delete %>
+<% else %>
+  <h3>Login Now:</h3>
+  <%= form_for :session, :url => session_path do |f| %>
+    <%= f.text_field :name %>
+    <%= f.text_field :password %>
+    <%= f.submit "Login" %>
+  <% end %>
+<% end %>
+
+
+<h1>Listing pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pages.each do |page| %>
+      <tr>
+        <td><%= page.title %></td>
+        <td><%= page.body %></td>
+        <td><%= link_to 'Show', page %></td>
+        <td><%= link_to 'Edit', edit_page_path(page) %></td>
+        <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Page', new_page_path %>
